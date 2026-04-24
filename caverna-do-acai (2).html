@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caverna do Açaí</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--dp:#0d0010;--dk:#1a0028;--mid:#3d0060;--viv:#7b00cc;--bri:#a020f0;--glo:#c060ff;--lig:#e0a0ff;--pnk:#ff00cc;--gld:#ffd700;--dim:#c0a0d0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dp);color:#fff;font-family:'Exo 2',sans-serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.pt{position:absolute;border-radius:50%;animation:fup linear infinite;opacity:0}
+@keyframes fup{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:.6}100%{transform:translateY(-10vh) scale(1.5);opacity:0}}
+#hero{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at center top,#3d0060 0%,#1a0028 40%,#0d0010 80%);overflow:hidden;padding:2rem}
+.hglow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(162,32,240,.3) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+.logo{font-size:5rem;filter:drop-shadow(0 0 30px var(--bri));animation:ifl 3s ease-in-out infinite;display:block;margin-bottom:1rem;position:relative;z-index:2}
+@keyframes ifl{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.htitle{font-family:'Orbitron',monospace;font-size:clamp(2.5rem,8vw,6rem);font-weight:900;line-height:1;text-transform:uppercase;background:linear-gradient(135deg,#fff 0%,#e0a0ff 40%,#a020f0 70%,#ff00cc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:2}
+.hsub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3vw,1.8rem);letter-spacing:.4em;color:var(--lig);margin-top:.5rem;position:relative;z-index:2;text-shadow:0 0 20px var(--bri)}
+.hcta{margin-top:2.5rem;position:relative;z-index:2;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btnp{font-family:'Orbitron',monospace;font-weight:700;font-size:.9rem;letter-spacing:.1em;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:50px;color:#fff;cursor:pointer;position:relative;overflow:hidden;transition:transform .2s;box-shadow:0 0 30px rgba(160,32,240,.6)}
+.btnp::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:shine 3s ease-in-out infinite}
+@keyframes shine{0%{left:-60%}60%,100%{left:130%}}
+.btnp:hover{transform:scale(1.05)}
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--dim);font-size:.75rem;letter-spacing:.2em;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+section{position:relative;z-index:10;padding:5rem 2rem}
+.stitle{font-family:'Orbitron',monospace;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:900;text-align:center;margin-bottom:3rem;color:#fff;text-shadow:0 0 30px var(--glo)}
+.stitle::after{content:'';display:block;width:100px;height:3px;background:linear-gradient(90deg,var(--bri),var(--pnk));margin:.75rem auto 0;border-radius:2px}
+#car-sec{background:linear-gradient(180deg,#0d0010 0%,#1a0028 50%,#0d0010 100%);overflow:hidden}
+.cw{position:relative;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.ct{display:flex;gap:1.5rem;animation:cscroll 35s linear infinite;width:max-content}
+.ct:hover{animation-play-state:paused}
+@keyframes cscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.cc{flex:0 0 280px;background:linear-gradient(135deg,rgba(61,0,96,.8),rgba(26,0,40,.9));border:1px solid rgba(160,32,240,.3);border-radius:20px;padding:1.5rem;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s}
+.cc::before{content:'';position:absolute;top:-100%;left:-30%;width:60%;height:300%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:skewX(-15deg);animation:ls 4s ease-in-out infinite}
+@keyframes ls{0%{top:-100%;left:-60%}60%,100%{top:-100%;left:130%}}
+.cc:nth-child(even)::before{animation-delay:-2s}
+.cc:hover{transform:translateY(-8px) scale(1.02);border-color:var(--bri);box-shadow:0 20px 60px rgba(160,32,240,.4)}
+.cemoji{font-size:3.5rem;display:block;margin-bottom:.75rem}
+.cname{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--lig);margin-bottom:.5rem}
+.cdesc{font-size:.8rem;color:var(--dim);line-height:1.5;margin-bottom:1rem}
+.cprice{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gld)}
+.cadd{display:block;width:100%;margin-top:.75rem;padding:.6rem;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:10px;color:#fff;font-family:'Exo 2',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer}
+#msec{background:linear-gradient(180deg,#0d0010,#140020);max-width:1200px;margin:0 auto;padding:5rem 2rem}
+.ctabs{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:3rem}
+.tbtn{font-family:'Exo 2',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;padding:.6rem 1.5rem;background:transparent;border:1px solid rgba(160,32,240,.4);border-radius:50px;color:var(--dim);cursor:pointer;transition:all .3s;text-transform:uppercase}
+.tbtn:hover,.tbtn.active{background:linear-gradient(135deg,var(--viv),var(--pnk));border-color:transparent;color:#fff;box-shadow:0 0 20px rgba(160,32,240,.5)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+.mc{background:linear-gradient(135deg,rgba(61,0,96,.6),rgba(13,0,16,.9));border:1px solid rgba(160,32,240,.2);border-radius:20px;overflow:hidden;transition:transform .3s,border-color .3s;position:relative;cursor:pointer}
+.mc::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-20deg);transition:left .6s}
+.mc:hover::after{left:150%}
+.mc:hover{transform:translateY(-6px);border-color:rgba(160,32,240,.7);box-shadow:0 15px 50px rgba(160,32,240,.3)}
+.mcimg{width:100%;height:160px;background:linear-gradient(135deg,var(--mid),var(--dp));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+.mcimg img{width:100%;height:100%;object-fit:cover}
+.iglow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(13,0,16,.8))}
+.mcb{padding:1.2rem}
+.mcn{font-family:'Orbitron',monospace;font-size:.95rem;font-weight:700;color:var(--lig);margin-bottom:.4rem}
+.mcd{font-size:.8rem;color:var(--dim);line-height:1.5;margin-bottom:1rem}
+.mcf{display:flex;align-items:center;justify-content:space-between}
+.mcp{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gld)}
+.atc{width:38px;height:38px;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:10px;color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.atc:hover{transform:scale(1.15)}
+#asec{background:linear-gradient(180deg,#140020,#0d0010)}
+.acon{max-width:900px;margin:0 auto}
+.asz{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem}
+.asc{background:linear-gradient(135deg,rgba(61,0,96,.8),rgba(26,0,40,.9));border:2px solid rgba(160,32,240,.4);border-radius:24px;padding:2rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.asc::before{content:'';position:absolute;top:-100%;left:-30%;width:60%;height:300%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:skewX(-15deg);animation:ls 3s ease-in-out infinite}
+.asc.sel,.asc:hover{border-color:var(--bri);box-shadow:0 0 40px rgba(160,32,240,.5);transform:translateY(-4px)}
+.asc.sel{background:linear-gradient(135deg,rgba(123,0,204,.6),rgba(61,0,96,.9))}
+.ase{font-size:3rem;display:block;margin-bottom:.75rem}
+.asn{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:900;color:var(--lig)}
+.asa{font-size:.85rem;color:var(--dim);margin:.4rem 0}
+.asp{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gld)}
+.actt{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--lig);margin-bottom:1.2rem;text-align:center}
+.acg{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:2rem}
+.chip{padding:.5rem 1.2rem;background:rgba(61,0,96,.4);border:1px solid rgba(160,32,240,.3);border-radius:50px;font-size:.85rem;cursor:pointer;transition:all .2s;color:var(--dim)}
+.chip.sel{background:linear-gradient(135deg,var(--viv),var(--pnk));border-color:transparent;color:#fff}
+.acai-add{display:block;width:100%;max-width:400px;margin:0 auto;padding:1rem;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:14px;color:#fff;font-family:'Orbitron',monospace;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 0 30px rgba(160,32,240,.5)}
+#crtbtn{position:fixed;bottom:5rem;right:1.5rem;width:60px;height:60px;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:100;box-shadow:0 0 30px rgba(160,32,240,.7);display:flex;align-items:center;justify-content:center}
+#crtcnt{position:absolute;top:-4px;right:-4px;width:22px;height:22px;background:var(--gld);border-radius:50%;font-size:.7rem;font-weight:700;color:#000;display:none;align-items:center;justify-content:center}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.mo.open{opacity:1;pointer-events:all}
+.md{background:linear-gradient(135deg,#1a0028,#0d0010);border:1px solid rgba(160,32,240,.4);border-radius:24px;padding:2.5rem;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 0 80px rgba(160,32,240,.3);transform:translateY(20px);transition:transform .3s}
+.mo.open .md{transform:translateY(0)}
+.mtit{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:var(--lig);margin-bottom:1.5rem}
+.mclose{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--dim);font-size:1.5rem;cursor:pointer}
+.mclose:hover{color:#fff}
+.fg{margin-bottom:1.2rem}
+.fl{display:block;font-size:.8rem;font-weight:600;letter-spacing:.1em;color:var(--lig);margin-bottom:.4rem;text-transform:uppercase}
+.fi{width:100%;padding:.8rem 1rem;background:rgba(61,0,96,.3);border:1px solid rgba(160,32,240,.3);border-radius:10px;color:#fff;font-family:'Exo 2',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--bri);box-shadow:0 0 15px rgba(160,32,240,.3)}
+.fi::placeholder{color:rgba(192,160,208,.4)}
+textarea.fi{resize:vertical;min-height:80px}
+select.fi{appearance:none;-webkit-appearance:none}
+.bts{width:100%;padding:1rem;background:linear-gradient(135deg,var(--viv),var(--pnk));border:none;border-radius:12px;color:#fff;font-family:'Orbitron',monospace;font-weight:700;font-size:.9rem;cursor:pointer;transition:opacity .2s;box-shadow:0 0 30px rgba(160,32,240,.5);margin-top:.5rem}
+.bts:hover{opacity:.9}
+.bts:disabled{opacity:.4;cursor:not-allowed}
+.ci{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid rgba(160,32,240,.15);gap:.5rem}
+.cin{font-size:.9rem;flex:1}
+.ciq{display:flex;align-items:center;gap:.5rem}
+.qb{width:26px;height:26px;background:rgba(61,0,96,.6);border:1px solid rgba(160,32,240,.3);border-radius:6px;color:#fff;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.qb:hover{background:rgba(123,0,204,.6)}
+.cip{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gld);min-width:60px;text-align:right}
+.ctot{margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(160,32,240,.3);display:flex;justify-content:space-between;align-items:center}
+.ctotl{font-weight:700}
+.ctotv{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gld)}
+.pay-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.2rem}
+.popt{padding:.9rem .5rem;background:rgba(61,0,96,.3);border:2px solid rgba(160,32,240,.25);border-radius:14px;cursor:pointer;text-align:center;transition:all .25s}
+.popt:hover{border-color:var(--bri)}
+.popt.sel{background:rgba(123,0,204,.4);border-color:var(--bri);box-shadow:0 0 18px rgba(160,32,240,.4)}
+.popt-icon{font-size:1.6rem;display:block;margin-bottom:.3rem}
+.popt-label{font-size:.75rem;font-weight:700;letter-spacing:.05em;color:var(--lig);text-transform:uppercase}
+.pix-box{background:rgba(61,0,96,.25);border:1px dashed rgba(160,32,240,.4);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.pix-chave{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.3);padding:.6rem 1rem;border-radius:8px;font-family:monospace;font-size:.9rem;color:var(--lig);margin-bottom:.75rem;gap:.5rem}
+.copy-btn{background:var(--viv);border:none;border-radius:6px;color:#fff;padding:.3rem .7rem;font-size:.75rem;cursor:pointer;white-space:nowrap}
+.upload-area{border:2px dashed rgba(160,32,240,.4);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;position:relative;transition:border-color .2s}
+.upload-area:hover{border-color:var(--bri)}
+.upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-area.has-file{border-color:#22cc66;background:rgba(34,204,102,.07)}
+.entrega-box,.troco-box{padding:.75rem 1rem;background:rgba(61,0,96,.25);border:1px solid rgba(160,32,240,.25);border-radius:12px;font-size:.85rem;color:var(--dim);margin-bottom:1rem}
+.succ{text-align:center;padding:1rem 0}
+.succ-icon{font-size:4rem;display:block;margin-bottom:1rem;animation:ifl 2s ease-in-out infinite}
+.succ-title{font-family:'Orbitron',monospace;font-size:1.4rem;color:var(--lig);margin-bottom:.5rem}
+.succ-msg{color:var(--dim);font-size:.9rem;line-height:1.6}
+#notif{position:fixed;top:1.5rem;right:1.5rem;background:linear-gradient(135deg,var(--viv),var(--pnk));color:#fff;padding:.8rem 1.5rem;border-radius:12px;font-weight:600;font-size:.9rem;z-index:300;transform:translateX(120%);transition:transform .3s}
+#notif.show{transform:translateX(0)}
+footer{position:relative;z-index:10;text-align:center;padding:2rem;color:rgba(192,160,208,.4);font-size:.8rem;border-top:1px solid rgba(160,32,240,.1)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--dp)}::-webkit-scrollbar-thumb{background:var(--viv);border-radius:3px}
+@media(max-width:600px){.md{padding:1.5rem}.mgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+
+<section id="hero">
+  <div class="hglow"></div>
+  <span class="logo">🫐</span>
+  <h1 class="htitle">Caverna<br>do Açaí</h1>
+  <p class="hsub">A experiência definitiva em açaí</p>
+  <div class="hcta">
+    <button class="btnp" onclick="scrollToMenu()">🍇 Ver Cardápio</button>
+    <button class="btnp" style="background:linear-gradient(135deg,rgba(61,0,96,.8),rgba(160,32,240,.5))" onclick="openCart()">🛒 Meu Pedido</button>
+  </div>
+  <div class="scroll-ind"><span>DESLIZE</span><span>▼</span></div>
+</section>
+
+<section id="car-sec">
+  <h2 class="stitle">⚡ Destaques da Casa</h2>
+  <div class="cw"><div class="ct" id="carTrack"></div></div>
+</section>
+
+<div id="msec">
+  <h2 class="stitle">🛍️ Cardápio Completo</h2>
+  <div class="ctabs" id="catTabs"></div>
+  <div class="mgrid" id="menuGrid"></div>
+</div>
+
+<section id="asec">
+  <div class="acon">
+    <h2 class="stitle">🫐 Monte seu Açaí</h2>
+    <div class="asz" id="acaiSizes"></div>
+    <div id="acompSec" style="display:none">
+      <div class="actt" id="acompTitle">Escolha seus acompanhamentos</div>
+      <div class="acg" id="acompGrid"></div>
+      <button class="acai-add" onclick="addAcaiToCart()">🫐 Adicionar ao Pedido</button>
+    </div>
+  </div>
+</section>
+
+<button id="crtbtn" onclick="openCart()">🛒<span id="crtcnt">0</span></button>
+<div id="notif"></div>
+
+<!-- CARRINHO -->
+<div class="mo" id="cartModal">
+  <div class="md" style="max-width:480px">
+    <button class="mclose" onclick="cm('cartModal')">✕</button>
+    <div class="mtit">🛒 Seu Pedido</div>
+    <div id="cartItems"></div>
+    <div id="cartEmpty" style="text-align:center;color:var(--dim);padding:2rem 0;display:none">Carrinho vazio 🫐</div>
+    <div id="cartFoot" style="display:none">
+      <div class="ctot"><span class="ctotl">Total</span><span class="ctotv" id="cartTotVal"></span></div>
+      <button class="bts" style="margin-top:1.5rem" onclick="openCheckout()">Finalizar Pedido →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="mo" id="chkModal">
+  <div class="md" style="max-width:520px">
+    <button class="mclose" onclick="cm('chkModal')">✕</button>
+    <div id="chkForm">
+      <div class="mtit">📦 Finalizar Pedido</div>
+      <div class="fg"><label class="fl">Seu Nome *</label><input type="text" class="fi" id="chkName" placeholder="Ex: João Silva"></div>
+      <div class="fg"><label class="fl">WhatsApp *</label><input type="tel" class="fi" id="chkPhone" placeholder="(44) 99999-9999"></div>
+      <div class="fg"><label class="fl">Endereço *</label><input type="text" class="fi" id="chkAddr" placeholder="Rua, Número, Bairro"></div>
+      <div class="fg"><label class="fl">Complemento</label><input type="text" class="fi" id="chkComp" placeholder="Apto, Bloco, Referência..."></div>
+      <div class="fg"><label class="fl">Observações</label><textarea class="fi" id="chkObs" placeholder="Algum detalhe especial?"></textarea></div>
+
+      <!-- PAGAMENTO -->
+      <div class="fg">
+        <label class="fl">Forma de Pagamento *</label>
+        <div class="pay-opts">
+          <div class="popt" id="pp-pix" onclick="selPay('pix')">
+            <span class="popt-icon">📱</span><span class="popt-label">PIX</span>
+          </div>
+          <div class="popt" id="pp-cartao" onclick="selPay('cartao')">
+            <span class="popt-icon">💳</span><span class="popt-label">Cartão</span>
+          </div>
+          <div class="popt" id="pp-dinheiro" onclick="selPay('dinheiro')">
+            <span class="popt-icon">💵</span><span class="popt-label">Dinheiro</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PIX -->
+      <div id="pixBox" class="pix-box" style="display:none">
+        <p style="font-size:.8rem;color:var(--dim);margin-bottom:.75rem">Faça o PIX e anexe o comprovante:</p>
+        <div class="pix-chave">
+          <span id="pixKey">71982578511</span>
+          <button class="copy-btn" onclick="copyPix()">📋 Copiar</button>
+        </div>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="pixFile" accept="image/*,.pdf" onchange="handleFile(this)">
+          <div id="uploadLabel">
+            <div style="font-size:2rem;margin-bottom:.5rem">📎</div>
+            <div style="font-size:.85rem;color:var(--lig);font-weight:600">Clique para anexar comprovante</div>
+            <div style="font-size:.75rem;color:var(--dim);margin-top:.3rem">JPG, PNG ou PDF</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARTÃO -->
+      <div id="cartaoBox" class="entrega-box" style="display:none">
+        💳 Pagamento com cartão na entrega.
+      </div>
+
+      <!-- DINHEIRO + TROCO -->
+      <div id="dinheiroBox" style="display:none">
+        <div class="troco-box">
+          💵 Pagamento em dinheiro na entrega.
+        </div>
+        <div class="fg">
+          <label class="fl">Precisa de troco? Para quanto? (opcional)</label>
+          <div style="position:relative">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.9rem">R$</span>
+            <input type="number" class="fi" id="chkTroco" placeholder="Ex: 50,00" min="0" step="0.01" style="padding-left:2.5rem">
+          </div>
+          <div id="trocoInfo" style="font-size:.78rem;color:#f7c559;margin-top:.4rem;display:none"></div>
+        </div>
+      </div>
+
+      <!-- RESUMO -->
+      <div style="background:rgba(61,0,96,.3);border:1px solid rgba(160,32,240,.2);border-radius:12px;padding:1rem;margin-bottom:1rem">
+        <div style="font-size:.8rem;color:var(--dim);margin-bottom:.5rem">Resumo:</div>
+        <div id="chkSumm"></div>
+        <div style="margin-top:.75rem;padding-top:.75rem;border-top:1px solid rgba(160,32,240,.2);display:flex;justify-content:space-between">
+          <span style="font-weight:700">Total:</span>
+          <span style="font-family:'Bebas Neue';font-size:1.3rem;color:var(--gld)" id="chkTotShow"></span>
+        </div>
+      </div>
+
+      <p id="chkErr" style="color:#ff4466;font-size:.85rem;margin-bottom:.75rem;display:none;padding:.6rem .9rem;background:rgba(255,68,102,.1);border-radius:8px;border:1px solid rgba(255,68,102,.3)"></p>
+      <button class="bts" id="sendBtn" onclick="submitOrder()">🫐 Enviar Pedido</button>
+    </div>
+
+    <div id="chkSucc" class="succ" style="display:none">
+      <span class="succ-icon">🎉</span>
+      <div class="succ-title">Pedido Enviado!</div>
+      <p class="succ-msg" id="succMsg"></p>
+      <button class="bts" style="margin-top:1.5rem" onclick="cm('chkModal');resetOrder()">Fazer Novo Pedido</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>🫐 Caverna do Açaí &nbsp;·&nbsp; Feito com amor e muito açaí</p></footer>
+
+<script>
+// ── SUPABASE ──────────────────────────────────────────────────────────────────
+const SB  = 'https://qlgfykalfqtwvhqkpahu.supabase.co';
+const SK  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZ2Z5a2FsZnF0d3ZocWtwYWh1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzczOTM5NiwiZXhwIjoyMDc5MzE1Mzk2fQ.qP6LHhQLAF5oSzkF4u1VAjV9Q-BTwexI5Cxsql76dZE';
+const H   = { apikey: SK, Authorization: 'Bearer ' + SK, 'Content-Type': 'application/json' };
+
+async function sbGet(table, q = '') {
+  try {
+    const r = await fetch(`${SB}/rest/v1/${table}${q}`, { headers: H });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch(e) { console.warn('sbGet falhou:', e); return null; }
+}
+
+async function sbInsert(table, data) {
+  try {
+    const r = await fetch(`${SB}/rest/v1/${table}`, {
+      method: 'POST',
+      headers: { ...H, Prefer: 'return=representation' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) {
+      const errTxt = await r.text();
+      let msg = errTxt;
+      try { const j = JSON.parse(errTxt); msg = j.message || j.error || errTxt; } catch(e){}
+      throw new Error(msg);
+    }
+    return await r.json();
+  } catch(e) {
+    console.error(`Erro ao inserir em ${table}:`, e);
+    throw e;
+  }
+}
+
+async function uploadFile(path, file) {
+  try {
+    const r = await fetch(`${SB}/storage/v1/object/comprovantes-caverna/${path}`, {
+      method: 'POST',
+      headers: { 
+        apikey: SK, 
+        Authorization: 'Bearer ' + SK, 
+        'Content-Type': file.type, 
+        'x-upsert': 'true' 
+      },
+      body: file
+    });
+    if (!r.ok) {
+      const errJson = await r.json().catch(() => ({ message: 'Erro desconhecido' }));
+      throw new Error(errJson.message || errJson.error || 'Falha no upload');
+    }
+    return `${SB}/storage/v1/object/public/comprovantes-caverna/${path}`;
+  } catch (e) {
+    console.error('Erro no uploadFile:', e);
+    throw new Error('Falha ao enviar imagem: ' + e.message);
+  }
+}
+
+// ── DADOS ESTÁTICOS ───────────────────────────────────────────────────────────
+const SCATS   = [{id:1,nome:'Bebidas'},{id:2,nome:'Salgados'},{id:3,nome:'Açaí'}];
+const STAM    = [{id:1,tamanho:'300ml',preco:20,max_acompanhamentos:3},{id:2,tamanho:'500ml',preco:28,max_acompanhamentos:4}];
+const SACOMP  = [{id:1,nome:'Morango'},{id:2,nome:'Banana'},{id:3,nome:'Leite Condensado'},{id:4,nome:'Leite Ninho'},{id:5,nome:'Avelã'},{id:6,nome:'Paçoca'},{id:7,nome:'Amendoim'}];
+const SPRODS  = [
+  {id:1,nome:'Refrigerante Lata',descricao:'Lata gelada',preco:5,categoria_id:1,emoji:'🥤',imagem_url:'',destaque:false,ativo:true},
+  {id:2,nome:'Refrigerante 1 Litro',descricao:'Garrafa 1 litro',preco:8,categoria_id:1,emoji:'🍾',imagem_url:'',destaque:false,ativo:true},
+  {id:3,nome:'Água com Gás 500ml',descricao:'Água mineral com gás',preco:3,categoria_id:1,emoji:'💧',imagem_url:'',destaque:false,ativo:true},
+  {id:4,nome:'Água sem Gás 500ml',descricao:'Água mineral sem gás',preco:2,categoria_id:1,emoji:'💧',imagem_url:'',destaque:false,ativo:true},
+  {id:5,nome:'Suco Yulo 400ml',descricao:'Suco de caixinha Yulo',preco:5,categoria_id:1,emoji:'🧃',imagem_url:'',destaque:false,ativo:true},
+  {id:6,nome:'Suco Natural 300ml',descricao:'Suco natural fresquinho',preco:5,categoria_id:1,emoji:'🍊',imagem_url:'',destaque:false,ativo:true},
+  {id:7,nome:'Torta Salgada Frango c/ Catupiry',descricao:'Fatia generosa com frango e catupiry',preco:10,categoria_id:2,emoji:'🥧',imagem_url:'',destaque:true,ativo:true},
+  {id:8,nome:'Torta Frango c/ Mussarela',descricao:'Fatia com frango e mussarela derretida',preco:10,categoria_id:2,emoji:'🥧',imagem_url:'',destaque:true,ativo:true},
+  {id:9,nome:'Torta Salgada Frango c/ Cheddar',descricao:'Fatia com frango e cheddar',preco:10,categoria_id:2,emoji:'🥧',imagem_url:'',destaque:false,ativo:true},
+  {id:10,nome:'Hambúrguer de Forno Cheddar',descricao:'Hambúrguer assado com cheddar',preco:7,categoria_id:2,emoji:'🍔',imagem_url:'',destaque:false,ativo:true},
+  {id:11,nome:'Hambúrguer de Forno Calabresa',descricao:'Hambúrguer assado com calabresa',preco:7,categoria_id:2,emoji:'🍔',imagem_url:'',destaque:false,ativo:true},
+  {id:12,nome:'Saltenha',descricao:'Massa folhada recheada',preco:7,categoria_id:2,emoji:'🥟',imagem_url:'',destaque:false,ativo:true},
+  {id:13,nome:'Coxinha de Frango',descricao:'Coxinha clássica de frango',preco:7,categoria_id:2,emoji:'🍗',imagem_url:'',destaque:false,ativo:true},
+  {id:14,nome:'Coxinha Frango c/ Catupiry',descricao:'Coxinha com frango e catupiry',preco:7,categoria_id:2,emoji:'🍗',imagem_url:'',destaque:false,ativo:true},
+  {id:15,nome:'Coxinha Costelinha c/ Queijo Cheese',descricao:'Coxinha especial com costelinha',preco:10,categoria_id:2,emoji:'🍗',imagem_url:'',destaque:true,ativo:true},
+  {id:16,nome:'Coxinha Carne Seca c/ Queijo',descricao:'Coxinha premium com carne seca',preco:10,categoria_id:2,emoji:'🍗',imagem_url:'',destaque:true,ativo:true},
+  {id:17,nome:'Baurú de Frango',descricao:'Baurú com frango',preco:7,categoria_id:2,emoji:'🥪',imagem_url:'',destaque:false,ativo:true},
+  {id:18,nome:'Baurú Frango c/ Catupiry',descricao:'Baurú com frango e catupiry',preco:7,categoria_id:2,emoji:'🥪',imagem_url:'',destaque:false,ativo:true},
+  {id:19,nome:'Baurú da Casa',descricao:'Receita especial da casa',preco:7,categoria_id:2,emoji:'🥪',imagem_url:'',destaque:true,ativo:true},
+  {id:20,nome:'Empadinha Doce',descricao:'Empadinha doce artesanal',preco:4,categoria_id:2,emoji:'🧁',imagem_url:'',destaque:false,ativo:true},
+  {id:21,nome:'Torta Doce',descricao:'Fatia de torta doce',preco:12,categoria_id:2,emoji:'🍰',imagem_url:'',destaque:true,ativo:true},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let products=[], cats=[], tams=[], acomps=[], cart=[];
+let selTam=null, selAcomps=[];
+let payMethod='', pixFileObj=null;
+let USE_SB=false;
+
+// ── PARTICLES ─────────────────────────────────────────────────────────────────
+(function(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<40;i++){
+    const p=document.createElement('div'); p.className='pt';
+    p.style.cssText=`left:${Math.random()*100}%;animation-duration:${6+Math.random()*12}s;animation-delay:${Math.random()*15}s;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;background:${'#a020f0,#c060ff,#ff00cc,#ffd700,#e0a0ff'.split(',')[Math.floor(Math.random()*5)]}`;
+    c.appendChild(p);
+  }
+})();
+
+// ── LOAD ──────────────────────────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    const [p, ct, t, a] = await Promise.all([
+      sbGet('produtos_caverna','?ativo=eq.true&order=categoria_id,nome'),
+      sbGet('categorias_caverna','?order=ordem'),
+      sbGet('tamanhos_acai','?ativo=eq.true&order=preco'),
+      sbGet('acompanhamentos','?ativo=eq.true&order=nome')
+    ]);
+    
+    // Se o banco retornar produtos, usa eles. Senão, usa o backup.
+    if (Array.isArray(p) && p.length > 0) {
+      products = p.map(x=>({...x, preco:+x.preco}));
+      cats     = ct || [];
+      tams     = (t || []).map(x=>({...x, preco:+x.preco}));
+      acomps   = a || [];
+      USE_SB   = true;
+      console.log('Dados carregados do Supabase.');
+    } else {
+      console.warn('Banco vazio ou sem produtos ativos. Usando dados locais.');
+      throw new Error('Banco vazio');
+    }
+  } catch(e) {
+    products = [...SPRODS];
+    cats     = SCATS;
+    tams     = STAM;
+    acomps   = SACOMP;
+    USE_SB   = (products.length > 0); // Mantém true se houver produtos, mas o insert ainda tentará SB
+  }
+  renderCarousel(); renderTabs(); renderMenu('Todos'); renderAcai();
+}
+
+// ── CAROUSEL ──────────────────────────────────────────────────────────────────
+function renderCarousel() {
+  const track = document.getElementById('carTrack');
+  const d = products.filter(p=>p.destaque);
+  if (!d.length) { track.innerHTML='<p style="color:var(--dim);padding:2rem 3rem">Nenhum destaque.</p>'; return; }
+  track.innerHTML = [...d,...d].map(p=>`
+    <div class="cc" onclick="addToCart(${p.id})">
+      <span class="cemoji">${p.emoji||'🫐'}</span>
+      <div class="cname">${p.nome}</div>
+      <div class="cdesc">${p.descricao||''}</div>
+      <div class="cprice">R$ ${fmtR(p.preco)}</div>
+      <button class="cadd">+ Adicionar</button>
+    </div>`).join('');
+}
+
+// ── MENU ──────────────────────────────────────────────────────────────────────
+function renderTabs() {
+  const cs = cats.filter(c=>products.some(p=>p.categoria_id===c.id));
+  document.getElementById('catTabs').innerHTML =
+    `<button class="tbtn active" onclick="filterMenu(this,'Todos')">Todos</button>` +
+    cs.map(c=>`<button class="tbtn" onclick="filterMenu(this,${c.id})">${c.nome}</button>`).join('');
+}
+function filterMenu(b, cat) {
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); renderMenu(cat);
+}
+function renderMenu(fc) {
+  const g = document.getElementById('menuGrid');
+  const f = fc==='Todos' ? products : products.filter(p=>p.categoria_id===fc);
+  if (!f.length) { g.innerHTML='<p style="color:var(--dim);grid-column:1/-1;text-align:center;padding:2rem">Nenhum produto.</p>'; return; }
+  g.innerHTML = f.map(p=>`
+    <div class="mc" onclick="addToCart(${p.id})">
+      <div class="mcimg">
+        ${p.imagem_url?`<img src="${p.imagem_url}" alt="${p.nome}" onerror="this.style.display='none'">`:'' }
+        <span style="${p.imagem_url?'display:none':''}font-size:3.5rem">${p.emoji||'🫐'}</span>
+        <div class="iglow"></div>
+      </div>
+      <div class="mcb">
+        <div class="mcn">${p.nome}</div>
+        <div class="mcd">${p.descricao||''}</div>
+        <div class="mcf">
+          <div class="mcp">R$ ${fmtR(p.preco)}</div>
+          <button class="atc" onclick="event.stopPropagation();addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── AÇAÍ ──────────────────────────────────────────────────────────────────────
+function renderAcai() {
+  document.getElementById('acaiSizes').innerHTML = tams.map(t=>`
+    <div class="asc" id="sz-${t.id}" onclick="selTamanho(${t.id})">
+      <span class="ase">🫐</span>
+      <div class="asn">${t.tamanho}</div>
+      <div class="asa">até ${t.max_acompanhamentos} acompanhamentos</div>
+      <div class="asp">R$ ${fmtR(t.preco)}</div>
+    </div>`).join('');
+}
+function selTamanho(id) {
+  selTam = tams.find(t=>t.id===id); selAcomps = [];
+  document.querySelectorAll('.asc').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('sz-'+id).classList.add('sel');
+  document.getElementById('acompSec').style.display = 'block';
+  document.getElementById('acompTitle').textContent = `Escolha até ${selTam.max_acompanhamentos} acompanhamentos`;
+  renderAcompGrid();
+  document.getElementById('acompSec').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function renderAcompGrid() {
+  document.getElementById('acompGrid').innerHTML = acomps.map(a=>
+    `<div class="chip ${selAcomps.includes(a.id)?'sel':''}" onclick="togAcomp(${a.id})">${a.nome}</div>`
+  ).join('');
+}
+function togAcomp(id) {
+  if (!selTam) { notify('⚠️ Escolha um tamanho primeiro!'); return; }
+  const max=selTam.max_acompanhamentos, idx=selAcomps.indexOf(id);
+  if (idx>-1) selAcomps.splice(idx,1);
+  else {
+    if (selAcomps.length>=max) { notify(`⚠️ Máximo de ${max} acompanhamentos!`); return; }
+    selAcomps.push(id);
+  }
+  renderAcompGrid();
+  document.getElementById('acompTitle').textContent = `Escolha até ${max} acompanhamentos (${selAcomps.length}/${max})`;
+}
+function addAcaiToCart() {
+  if (!selTam) { notify('⚠️ Escolha um tamanho!'); return; }
+  const nms = selAcomps.map(id=>acomps.find(a=>a.id===id)?.nome).filter(Boolean);
+  cart.push({
+    id:'acai-'+Date.now(), nome:`🫐 Açaí ${selTam.tamanho}`,
+    preco:+selTam.preco, descricao: nms.length?'Com: '+nms.join(', '):'Puro',
+    emoji:'🫐', qty:1
+  });
+  updCrt(); notify(`✅ Açaí ${selTam.tamanho} adicionado!`);
+  selTam=null; selAcomps=[];
+  document.querySelectorAll('.asc').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('acompSec').style.display='none'; renderAcompGrid();
+}
+
+// ── CART ──────────────────────────────────────────────────────────────────────
+function addToCart(id) {
+  const p = products.find(x=>x.id===id); if (!p) return;
+  const e = cart.find(x=>x.id===id);
+  if (e) e.qty++; else cart.push({id:p.id, nome:p.nome, preco:+p.preco, emoji:p.emoji||'🫐', qty:1});
+  updCrt(); notify('✅ '+p.nome+' adicionado!');
+}
+function updCrt() {
+  const t = cart.reduce((s,i)=>s+i.qty,0), el=document.getElementById('crtcnt');
+  el.textContent=t; el.style.display=t>0?'flex':'none';
+}
+function openCart() {
+  const ie=document.getElementById('cartItems'), ee=document.getElementById('cartEmpty'), fe=document.getElementById('cartFoot');
+  if (!cart.length) { ie.innerHTML=''; ee.style.display='block'; fe.style.display='none'; }
+  else {
+    ee.style.display='none'; fe.style.display='block'; let tot=0;
+    ie.innerHTML = cart.map(i=>{
+      tot+=i.preco*i.qty;
+      return `<div class="ci">
+        <div style="flex:1">
+          <div class="cin">${i.emoji} ${i.nome}</div>
+          ${i.descricao?`<div style="font-size:.75rem;color:var(--dim)">${i.descricao}</div>`:''}
+        </div>
+        <div class="ciq">
+          <button class="qb" onclick="chgQty('${i.id}',-1)">−</button>
+          <span>${i.qty}</span>
+          <button class="qb" onclick="chgQty('${i.id}',1)">+</button>
+        </div>
+        <span class="cip">R$ ${fmtR(i.preco*i.qty)}</span>
+      </div>`;
+    }).join('');
+    document.getElementById('cartTotVal').textContent = 'R$ '+fmtR(tot);
+  }
+  om('cartModal');
+}
+function chgQty(id, d) {
+  const idx = cart.findIndex(x=>String(x.id)===String(id)); if (idx<0) return;
+  cart[idx].qty+=d; if (cart[idx].qty<=0) cart.splice(idx,1);
+  openCart(); updCrt();
+}
+
+// ── CHECKOUT ──────────────────────────────────────────────────────────────────
+function openCheckout() {
+  cm('cartModal');
+  document.getElementById('chkForm').style.display='block';
+  document.getElementById('chkSucc').style.display='none';
+  document.getElementById('chkErr').style.display='none';
+  payMethod=''; pixFileObj=null;
+  document.querySelectorAll('.popt').forEach(p=>p.classList.remove('sel'));
+  ['pixBox','cartaoBox','dinheiroBox'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('uploadArea').classList.remove('has-file');
+  document.getElementById('uploadLabel').innerHTML=
+    '<div style="font-size:2rem;margin-bottom:.5rem">📎</div><div style="font-size:.85rem;color:var(--lig);font-weight:600">Clique para anexar comprovante</div><div style="font-size:.75rem;color:var(--dim);margin-top:.3rem">JPG, PNG ou PDF</div>';
+  document.getElementById('chkTroco').value='';
+  document.getElementById('trocoInfo').style.display='none';
+  let tot=0;
+  document.getElementById('chkSumm').innerHTML = cart.map(i=>{
+    tot+=i.preco*i.qty;
+    return `<div style="display:flex;justify-content:space-between;margin-bottom:.3rem;font-size:.82rem">
+      <span>${i.emoji} ${i.nome} ×${i.qty}</span>
+      <span>R$ ${fmtR(i.preco*i.qty)}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('chkTotShow').textContent = 'R$ '+fmtR(tot);
+  om('chkModal');
+}
+
+function selPay(m) {
+  payMethod = m;
+  document.querySelectorAll('.popt').forEach(p=>p.classList.remove('sel'));
+  document.getElementById('pp-'+m).classList.add('sel');
+  document.getElementById('pixBox').style.display     = m==='pix'     ? 'block':'none';
+  document.getElementById('cartaoBox').style.display  = m==='cartao'  ? 'block':'none';
+  document.getElementById('dinheiroBox').style.display= m==='dinheiro'? 'block':'none';
+  document.getElementById('chkErr').style.display='none';
+}
+
+function copyPix() {
+  const k = document.getElementById('pixKey').textContent;
+  navigator.clipboard.writeText(k).then(()=>notify('✅ Chave PIX copiada!')).catch(()=>notify('Copie: '+k));
+}
+
+function handleFile(input) {
+  const f=input.files[0]; if (!f) return;
+  pixFileObj=f;
+  const ua=document.getElementById('uploadArea');
+  ua.classList.add('has-file');
+  document.getElementById('uploadLabel').innerHTML=
+    `<div style="font-size:2rem;margin-bottom:.5rem">✅</div>
+     <div style="font-size:.85rem;color:#22cc66;font-weight:600">${f.name}</div>
+     <div style="font-size:.75rem;color:var(--dim);margin-top:.3rem">${(f.size/1024).toFixed(1)} KB — clique para trocar</div>`;
+}
+
+// Mostra troco calculado
+document.addEventListener('input', e => {
+  if (e.target.id !== 'chkTroco') return;
+  const val = parseFloat(e.target.value);
+  const tot = cart.reduce((s,i)=>s+i.preco*i.qty, 0);
+  const info = document.getElementById('trocoInfo');
+  if (!isNaN(val) && val > 0) {
+    if (val < tot) {
+      info.textContent = '⚠️ Valor menor que o total do pedido!';
+      info.style.color = '#ff4466';
+    } else {
+      info.textContent = `💰 Troco: R$ ${fmtR(val - tot)}`;
+      info.style.color = '#f7c559';
+    }
+    info.style.display='block';
+  } else {
+    info.style.display='none';
+  }
+});
+
+async function submitOrder() {
+  // Validações
+  const nome  = document.getElementById('chkName').value.trim();
+  const tel   = document.getElementById('chkPhone').value.trim();
+  const end   = document.getElementById('chkAddr').value.trim();
+  const err   = document.getElementById('chkErr');
+
+  const showErr = (msg) => { err.textContent=msg; err.style.display='block'; };
+
+  if (!nome)      { showErr('⚠️ Informe seu nome.'); return; }
+  if (!tel)       { showErr('⚠️ Informe seu WhatsApp.'); return; }
+  if (!end)       { showErr('⚠️ Informe o endereço de entrega.'); return; }
+  if (!payMethod) { showErr('⚠️ Selecione a forma de pagamento.'); return; }
+  if (payMethod==='pix' && !pixFileObj) { showErr('⚠️ Anexe o comprovante do PIX.'); return; }
+
+  // Troco
+  const trocoVal = parseFloat(document.getElementById('chkTroco').value);
+  const tot      = cart.reduce((s,i)=>s+i.preco*i.qty, 0);
+  if (payMethod==='dinheiro' && !isNaN(trocoVal) && trocoVal > 0 && trocoVal < tot) {
+    showErr('⚠️ Valor do troco menor que o total do pedido.'); return;
+  }
+
+  err.style.display='none';
+  const btn=document.getElementById('sendBtn');
+  btn.disabled=true; btn.textContent='⏳ Enviando...';
+
+  try {
+    // Upload do comprovante PIX
+    let comprUrl='';
+    if (pixFileObj) {
+      const ext = pixFileObj.name.split('.').pop().toLowerCase();
+      const path = `comp_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+      comprUrl = await uploadFile(path, pixFileObj);
+    }
+
+    // Monta objeto do pedido
+    const codigo = 'PED-' + String(Date.now()).slice(-6);
+    const itensJson = cart.map(i=>({
+      nome: i.nome, emoji: i.emoji, qty: i.qty,
+      preco: i.preco, descricao: i.descricao||''
+    }));
+
+    const pedido = {
+      nome_cliente:        nome,
+      telefone:            tel.replace(/\D/g,''),
+      tipo_entrega:        'entrega',
+      endereco:            end,
+      endereco_complemento: document.getElementById('chkComp')?.value?.trim() || '',
+      observacoes:         document.getElementById('chkObs')?.value?.trim() || '',
+      forma_pagamento:     payMethod,
+      comprovante_url:     comprUrl,
+      troco:               (payMethod==='dinheiro' && !isNaN(trocoVal) && trocoVal>0) ? trocoVal : null,
+      status:              'novo',
+      subtotal:            tot,
+      total:               tot,
+      itens:               itensJson
+    };
+
+    if (USE_SB) {
+      console.log('Tentando inserir pedido no banco...');
+      const res = await sbInsert('pedidos_caverna', pedido);
+      console.log('Pedido enviado com sucesso:', res);
+    } else {
+      console.warn('Modo Offline: USE_SB está falso.');
+    }
+
+    // Mensagem de sucesso
+    let extraMsg = '';
+    if (payMethod==='pix')     extraMsg='✅ Comprovante recebido!';
+    if (payMethod==='cartao')  extraMsg='💳 Pagamento na entrega.';
+    if (payMethod==='dinheiro'){
+      if (!isNaN(trocoVal) && trocoVal>0)
+        extraMsg=`💵 Troco para R$ ${fmtR(trocoVal)} (troco: R$ ${fmtR(trocoVal-tot)}).`;
+      else extraMsg='💵 Pagamento em dinheiro na entrega.';
+    }
+
+    document.getElementById('succMsg').innerHTML =
+      `Obrigado, <strong>${nome}</strong>! 🎉<br><br>
+       Pedido <strong>${codigo}</strong> — <strong>R$ ${fmtR(tot)}</strong><br>
+       Entrega: ${end}<br>Contato: ${tel}<br><br>
+       ${extraMsg}<br><br>
+       Em breve entraremos em contato! 🫐💜`;
+
+    document.getElementById('chkForm').style.display='none';
+    document.getElementById('chkSucc').style.display='block';
+
+  } catch(e) {
+    console.error('Erro ao enviar pedido:', e);
+    showErr('❌ Erro ao enviar pedido: ' + e.message);
+    btn.disabled=false; btn.textContent='🫐 Enviar Pedido';
+  }
+}
+
+function resetOrder() {
+  cart=[]; updCrt();
+  ['chkName','chkPhone','chkAddr','chkComp','chkObs','chkTroco'].forEach(id=>{ document.getElementById(id).value=''; });
+  payMethod=''; pixFileObj=null;
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function fmtR(v) { return Number(v).toFixed(2).replace('.',','); }
+function om(id)  { document.getElementById(id).classList.add('open'); }
+function cm(id)  { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+let nt;
+function notify(m) {
+  const e=document.getElementById('notif'); e.textContent=m;
+  e.classList.add('show'); clearTimeout(nt);
+  nt=setTimeout(()=>e.classList.remove('show'),2500);
+}
+function scrollToMenu() { document.getElementById('car-sec').scrollIntoView({behavior:'smooth'}); }
+
+loadAll();
+</script>
+</body>
+</html>
